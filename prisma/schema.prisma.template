@@ -1,0 +1,85 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider      = "prisma-client"
+  output        = "../resources/generated/prisma"
+  moduleFormat  = "esm"
+  binaryTargets = ["native", "windows"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @unique @default(cuid())
+  email     String   @unique
+  name      String   @unique
+  password  String   @default("")
+  pollTags  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Launcher {
+  id        String   @id @unique @default(cuid())
+  dataType  String   @unique
+  dataValue String   @db.LongText
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Motd {
+  id        String   @id @unique @default(cuid())
+  motd      String   @db.LongText
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Server {
+  id         String      @id @unique @default(cuid())
+  serverId   Int         @unique
+  name       String
+  desc       String      @default("")
+  mcVersion  String      @default("1.7.10")
+  difficulty Int         @default(2)
+  assets     String      @default("")
+  core       String      @default("")
+  modpack    String      @default("")
+  available  Boolean     @default(false)
+  modded     Boolean     @default(false)
+  featured   String      @default("")
+  periodic   Boolean     @default(false)
+  tags       ServerTag[]
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+}
+
+model ServerTag {
+  id        String   @id @unique @default(cuid())
+  tagId     Int      @unique
+  name      String   @unique
+  desc      String
+  servers   Server[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Articles {
+  id        String   @id @unique @default(cuid())
+  articleId Int      @unique
+  serverId  Int      @default(-1)
+  tabName   String
+  pageOrder Int      @default(0)
+  title     String   @default("")
+  subtitle  String   @default("")
+  text      String   @db.LongText
+  available Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

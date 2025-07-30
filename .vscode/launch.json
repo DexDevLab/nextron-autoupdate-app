@@ -1,0 +1,29 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "nextron:main",
+      "type": "node",
+      "request": "attach",
+      "port": 9292,
+      "skipFiles": ["<node_internals>/**"],
+      "localRoot": "${workspaceFolder}/src",
+      "sourceMaps": true
+    },
+    {
+      "name": "nextron:renderer",
+      "type": "chrome",
+      "request": "attach",
+      "port": 5858,
+      "urlFilter": "http://localhost:*",
+      "webRoot": "${workspaceFolder}/src/renderer",
+      "sourceMaps": true
+    }
+  ],
+  "compounds": [
+    {
+      "name": "all",
+      "configurations": ["nextron:main", "nextron:renderer"]
+    }
+  ]
+}

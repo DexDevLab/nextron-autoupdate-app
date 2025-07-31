@@ -39,9 +39,11 @@ export const instantiateWindow = {
     });
     // Loading Page component
     await window.loadURL(getBackendPath("splash"));
+
+    window.webContents.openDevTools();
     if (!isProd) {
       // Open Dev Tools
-      window.webContents.openDevTools();
+      //window.webContents.openDevTools();
     }
     // Specific commands when closing window
     window.on("close", () => {

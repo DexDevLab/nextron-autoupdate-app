@@ -34,10 +34,8 @@ yarn-error.log*
 # vercel
 .vercel
 
-/prisma/schema.prisma
-/resources/generated/prisma
 /prisma/seed.js
 /prisma/seedLists.js
 /dist
 /renderer/.next
-/renderer/.next
+/app

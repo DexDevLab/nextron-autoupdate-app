@@ -26,7 +26,7 @@ function Splash() {
 
   useEffect(() => {
     log("Splash Screen Loaded");
-    //run(true);
+    run(true);
   }, []);
 
   useEffect(() => {
@@ -35,7 +35,7 @@ function Splash() {
       setLabel({
         main: "Etapa 1 de 5",
         icon: message.status,
-        desc: message.data,
+        desc: message.data.message || message.data,
       });
     });
   }, []);
@@ -45,16 +45,17 @@ function Splash() {
       if (Object.keys(loadResults).length < 5) {
         switch (progress) {
           case 15:
-            setLabel({
-              main: "Etapa 2 de 5",
-              icon: "🔐",
-              desc: "Inicializando o sistema Anti-Palles...",
-            });
+            // setLabel({
+            //   main: "Etapa 2 de 5",
+            //   icon: "🔐",
+            //   desc: "Inicializando o sistema Anti-Palles...",
+            // });
             // Connection Test
             const connectionTest = async () => {
               return await testIpc();
             };
             connectionTest().then(({ status, data }) => {
+              console.log(58, data);
               if (data.length === 0 || status !== 200) {
                 run(false);
                 const message =
@@ -99,11 +100,11 @@ function Splash() {
           case 40:
             log({ tests: { ...loadResults } });
             log("All tests done");
-            setLabel({
-              main: "Etapa 3 de 5",
-              icon: "⚙️",
-              desc: "​Procurando atualizações...",
-            });
+            // setLabel({
+            //   main: "Etapa 3 de 5",
+            //   icon: "⚙️",
+            //   desc: "​Procurando atualizações...",
+            // });
             //TODO Update logic
             const updateCheck = async () => {
               return await updateChecker();
@@ -124,35 +125,35 @@ function Splash() {
             });
             break;
           case 60:
-            setLabel({
-              main: "Etapa 4 de 5",
-              icon: "👀",
-              desc: "Escondendo baús onde Ryan não possa achar...",
-            });
+            // setLabel({
+            //   main: "Etapa 4 de 5",
+            //   icon: "👀",
+            //   desc: "Escondendo baús onde Ryan não possa achar...",
+            // });
             //TODO Server list from database
             //TODO Download data assets (background, icon etc)
             break;
           case 80:
-            setLabel({
-              main: "Etapa 5 de 5",
-              icon: "🧟",
-              desc: "Spawnando zumbis possuídos...",
-            });
+            // setLabel({
+            //   main: "Etapa 5 de 5",
+            //   icon: "🧟",
+            //   desc: "Spawnando zumbis possuídos...",
+            // });
             break;
           case 100:
             if (!loadComplete) {
-              setLabel({
-                main: "Etapa 5 de 5",
-                icon: "✔️",
-                desc: "Pronto!",
-              });
+              // setLabel({
+              //   main: "Etapa 5 de 5",
+              //   icon: "✔️",
+              //   desc: "Pronto!",
+              // });
               asyncDelay(async () => {
                 setLoadComplete(true);
-                setLabel({
-                  main: " ",
-                  icon: "📢​​",
-                  desc: "Oin oin, patchorei, que a seta sita patchorei, oin oin...",
-                });
+                // setLabel({
+                //   main: " ",
+                //   icon: "📢​​",
+                //   desc: "Oin oin, patchorei, que a seta sita patchorei, oin oin...",
+                // });
               }, 2000);
               // asyncDelay(async () => {
               //   log(`Login is loading...`);
@@ -172,11 +173,11 @@ function Splash() {
       reset();
       log({ test: { ...loadResults } });
       log("O Launcher encontrou um erro e será fechado");
-      setLabel({
-        main: " ",
-        icon: "❌​​​",
-        desc: "O Launcher encontrou um erro e será fechado.",
-      });
+      // setLabel({
+      //   main: " ",
+      //   icon: "❌​​​",
+      //   desc: "O Launcher encontrou um erro e será fechado.",
+      // });
       asyncDelay(async () => {
         //window.ipc.send("window-close", true);
       }, 3000);

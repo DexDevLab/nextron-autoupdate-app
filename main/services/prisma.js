@@ -1,4 +1,4 @@
-import { PrismaClient } from "../../resources/generated/prisma";
+import { PrismaClient } from "../../resources/generated/prisma/client";
 import { logger } from "../helpers/utils";
 
 // Call ORM client once

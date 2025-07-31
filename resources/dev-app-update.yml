@@ -1,0 +1,5 @@
+provider: github
+url: https://github.com/DexDevLab/nextron-autoupdate-app
+useMultipleRangeRequest: false
+channel: latest
+updaterCacheDirName: nextron-autoupdate-app

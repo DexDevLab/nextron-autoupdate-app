@@ -2,14 +2,14 @@
   "private": true,
   "name": "nextron-autoupdate-app",
   "description": "Test for electron builder autoupdate",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "author": "github.com/dexdevlab",
   "main": "app/background.js",
   "license": "MIT",
   "scripts": {
     "dev": "nextron",
-    "dist": "electron-builder",
-    "build": "nextron build",
+    "dist": "prisma generate && electron-builder",
+    "build": "prisma generate && nextron build",
     "build:prod:old": "nextron build --config electron-builder.yml",
     "postinstall": "electron-builder install-app-deps",
     "chakra-theme": "npx @chakra-ui/cli tokens ./src/renderer/theme/index.js",
@@ -44,20 +44,57 @@
     "react-dom": "^19.1.0"
   },
   "repository": "https://github.com/DexDevLab/nextron-autoupdate-app",
-  "publish": {
-    "provider": "github",
-    "releaseType": "release"
-  },
   "build": {
     "extends": null,
     "appId": "io.github.dexdevlab.nextron-autoupdate-app",
-    "productName": "Nextron Auto Update App",
+    "productName": "NextronAutoUpdateApp",
+    "generateUpdatesFilesForAllChannels": true,
     "win": {
       "target": "nsis"
     },
+    "mac": {
+      "target": "dmg",
+      "artifactName": "appName.dmg"
+    },
+    "dmg": {
+      "iconSize": 80,
+      "title": "${productName}-${version}"
+    },
+    "nsis": {
+      "artifactName": "${productName}-Setup-${version}.${ext}",
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": false,
+      "runAfterFinish": true,
+      "deleteAppDataOnUninstall": true,
+      "createDesktopShortcut": false,
+      "createStartMenuShortcut": true,
+      "shortcutName": "NextronAutoUpdateApp",
+      "publish": [
+        {
+          "provider": "generic",
+          "url": "https://cloud.dexlabs.com.br/s/${productName}?dir=/${version}"
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        "deb",
+        "AppImage"
+      ],
+      "category": "Utility",
+      "maintainer": "${author}",
+      "description": "${description}"
+    },
     "directories": {
       "output": "dist",
-      "buildResources": "src/resources"
+      "buildResources": "resources"
     }
-  }
+  },
+  "publish": [
+    {
+      "provider": "generic",
+      "url": "https://cloud.dexlabs.com.br/s/${productName}?dir=/${version}"
+    }
+  ]
 }

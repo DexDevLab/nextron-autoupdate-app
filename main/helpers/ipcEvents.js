@@ -98,6 +98,12 @@ export const ipcEvents = () => {
   });
 };
 
+ipcMain.on('update-msg', async(event, args) =>{
+  console.log(102, args);
+  BrowserWindow.getFocusedWindow().webContents.send('update-msg', args)
+  //event.reply('update-msg', args);
+})
+
 
 // Gets data from Electron Store. May use specific key to get refined properties and values (recommended for performance)
 // ipcMain.on("store-get", async (event, key) => {
@@ -129,12 +135,14 @@ export const ipcEvents = () => {
 //   instantiateElectronStore().delete(key);
 // });
 
-// Instantiate the Electron Store logger
-ipcMain.handle("logger-start", async (event, msg) => {
-  instantiateElectronStore(false, { name: "log" }).clear();
-});
+// // Instantiate the Electron Store logger
+// ipcMain.handle("logger-start", async (event, msg) => {
+//   instantiateElectronStore(false, { name: "log" }).clear();
+// });
 
-// Set information to the Electron Store Logger
-ipcMain.on("logger-set", async (event, msg) => {
-  instantiateElectronStore(false, { name: "log" }).set(msg);
-});
+// // Set information to the Electron Store Logger
+// ipcMain.on("logger-set", async (event, msg) => {
+//   instantiateElectronStore(false, { name: "log" }).set(msg);
+// });
+
+

@@ -26,7 +26,18 @@ function Splash() {
 
   useEffect(() => {
     log("Splash Screen Loaded");
-    run(true);
+    //run(true);
+  }, []);
+
+  useEffect(() => {
+    IPC.LISTEN("update-msg", (message) => {
+      console.log(34, message);
+      setLabel({
+        main: "Etapa 1 de 5",
+        icon: message.status,
+        desc: message.data,
+      });
+    });
   }, []);
 
   useEffect(() => {
@@ -98,7 +109,7 @@ function Splash() {
               return await updateChecker();
             };
             updateCheck().then(({ status, data }) => {
-              console.log(101, status, data)
+              console.log(101, status, data);
               // if (data.length === 0 || status !== 200) {
               //   run(false);
               //   const errorMsg =
@@ -143,13 +154,13 @@ function Splash() {
                   desc: "Oin oin, patchorei, que a seta sita patchorei, oin oin...",
                 });
               }, 2000);
-              asyncDelay(async () => {
-                log(`Login is loading...`);
-                window.ipc.send("window-open", {
-                  windowName: "login",
-                  closeParent: true,
-                });
-              }, 2000);
+              // asyncDelay(async () => {
+              //   log(`Login is loading...`);
+              //   window.ipc.send("window-open", {
+              //     windowName: "login",
+              //     closeParent: true,
+              //   });
+              // }, 2000);
             }
             break;
           default:

@@ -39,3 +39,5 @@ yarn-error.log*
 /prisma/seed.js
 /prisma/seedLists.js
 /dist
+/renderer/.next
+/renderer/.next

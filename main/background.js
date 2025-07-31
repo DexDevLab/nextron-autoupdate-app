@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { app } from "electron";
+import { app, ipcMain } from "electron";
 import serve from "electron-serve";
 import { appEvents } from "./helpers/appEvents";
 import { ipcEvents } from "./helpers/ipcEvents";
@@ -8,6 +8,7 @@ import { instantiateElectronStore, logger } from "./helpers/utils";
 import { instantiateWindow } from "./helpers/windows";
 
 const isProd = process.env.NODE_ENV === "production";
+const { autoUpdater, AppUpdater } = require("electron-updater");
 
 console.log(`\n\nApplication Started\n\n`);
 
@@ -18,6 +19,10 @@ if (isProd) {
 }
 
 console.log(`\n\nStarting Background\n\n`);
+
+autoUpdater.autoDownload = false;
+autoUpdater.autoInstallOnAppQuit = true;
+autoUpdater.forceDevUpdateConfig = true;
 
 (async () => {
   // Trigger 'Ready' Event
@@ -39,8 +44,40 @@ console.log(`\n\nStarting Background\n\n`);
   // Registering Events and Functions
   appEvents();
   await logger(`App Events Registered`);
+
+  // Global exception handler
+  process.on("uncaughtException", (error) => {
+    console.log(error);
+    logger(error);
+  });
+
   ipcEvents();
   await logger(`IPC Events and Functions Registered`);
+
   ipcHandlers();
   await logger(`IPC API Handlers Registered`);
+
+  autoUpdater.checkForUpdates();
+  ipcMain.emit("update-msg", null, { status: 102, data: "Checking for updates..." });
+
+  autoUpdater.on('update-available', (info) =>{
+    ipcMain.emit('update-msg', null, {status: 200, data: 'Update available'});
+    let pth = autoUpdater.downloadUpdate();
+    ipcMain.emit('update-msg', null, {status: 200, data: pth});
+  })
+
+  autoUpdater.on('update-not-available', (info) =>{
+    ipcMain.emit('update-msg', null, {status: 200, data: 'No update available'});
+    //ipcMain.emit('update-msg', null, {status: 200, data: pth});
+  })
+
+  autoUpdater.on('update-downloaded', (info) =>{
+    ipcMain.emit('update-msg', null, {status: 200, data: 'Update downloaded'});
+  })
+
+  autoUpdater.on('error', (info) =>{
+    ipcMain.emit('update-msg', null, {status: 500, data: info});
+  })
+
+
 })();

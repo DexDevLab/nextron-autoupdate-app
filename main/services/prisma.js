@@ -17,7 +17,7 @@ export const prismaService = async ({ table, fn, args }) => {
     await prisma.$disconnect();
     return {
       status: error.code || error.errorCode || 500,
-      data: "Error: Prisma Error",
+      data: `Error: Prisma Error ${error}`,
     };
   } finally {
     await prisma.$disconnect();

@@ -2,7 +2,7 @@
   "private": true,
   "name": "nextron-autoupdate-app",
   "description": "Test for electron builder autoupdate",
-  "version": "v0.0.15",
+  "version": "v0.0.16",
   "author": "github.com/dexdevlab",
   "main": "app/background.js",
   "license": "MIT",
@@ -53,6 +53,12 @@
     "appId": "io.github.dexdevlab.nextron-autoupdate-app",
     "productName": "NextronAutoUpdateApp",
     "generateUpdatesFilesForAllChannels": true,
+    "extraResources": [
+      {
+        "from": "generated/prisma",
+        "to": "generated/prisma"
+      }
+    ],
     "win": {
       "target": "nsis"
     },

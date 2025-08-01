@@ -8,7 +8,7 @@ generator client {
   provider      = "prisma-client"
   output        = "../resources/generated/prisma"
   moduleFormat  = "esm"
-  binaryTargets = ["native", "windows"]
+  binaryTargets = ["native"]
 }
 
 datasource db {

@@ -1,6 +1,9 @@
 name: Build/release
 
-on: push
+on:
+  push:
+    tags:
+      - v*
 
 jobs:
   release:
@@ -26,7 +29,7 @@ jobs:
         run: npm install
 
       - name: Apply all pending migrations to the database and generate Prisma Client
-        run: prisma generate && npx prisma migrate deploy
+        run: prisma generate | npx prisma migrate deploy
         env:
             DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
@@ -39,4 +42,4 @@ jobs:
 
           # If the commit is tagged with a version (e.g. "v1.0.0"),
           # release the app after building
-          release: ${{ startsWith(github.ref, 'refs/tags/v') }}
+          release: true

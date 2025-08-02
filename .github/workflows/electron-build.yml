@@ -22,16 +22,10 @@ jobs:
         with:
           node-version: 20
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Apply all pending migrations to the database and generate Prisma Client
-        run: npx prisma generate | npx prisma migrate deploy
-        env:
-            DATABASE_URL: ${{ secrets.DATABASE_URL }}
-
       - name: Build/release Electron app
         uses: Yan-Jobs/action-electron-builder@v1.7.0
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
         with:
           # GitHub token, automatically provided to the action
           # (No need to define this secret in the repo settings)

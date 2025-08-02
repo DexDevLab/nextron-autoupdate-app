@@ -1,8 +1,17 @@
 import { PrismaClient } from "../../resources/generated/prisma/client";
 import { logger } from "../helpers/utils";
 
+// Getting Database Url
+const databaseUrl = process.env.DATABASE_URL;
+
 // Call ORM client once
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  datasources: {
+    db: {
+      url: databaseUrl,
+    },
+  },
+});
 
 // Prisma ORM core function. Calls database and return query.
 export const prismaService = async ({ table, fn, args }) => {

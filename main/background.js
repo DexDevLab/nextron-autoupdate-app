@@ -1,4 +1,4 @@
-import "dotenv/config";
+import '@dotenvx/dotenvx/config';
 import { app, ipcMain } from "electron";
 import serve from "electron-serve";
 import path from "path";

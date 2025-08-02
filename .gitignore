@@ -39,3 +39,4 @@ yarn-error.log*
 /dist
 /renderer/.next
 /app
+/.env.keys

@@ -2,14 +2,14 @@
   "private": true,
   "name": "nextron-autoupdate-app",
   "description": "Test for electron builder autoupdate",
-  "version": "v0.0.20",
+  "version": "v0.0.21",
   "author": "github.com/dexdevlab",
   "main": "app/background.js",
   "license": "MIT",
   "scripts": {
     "dev": "nextron",
     "dist": "prisma generate && electron-builder",
-    "build": "nextron build",
+    "build": "prisma generate && nextron build",
     "build:prod:old": "nextron build --config electron-builder.yml",
     "postinstall": "electron-builder install-app-deps",
     "chakra-theme": "npx @chakra-ui/cli tokens ./src/renderer/theme/index.js",
@@ -64,7 +64,7 @@
     },
     "mac": {
       "target": "dmg",
-      "artifactName": "appName.dmg"
+      "artifactName": "${productName}.dmg"
     },
     "dmg": {
       "iconSize": 80,

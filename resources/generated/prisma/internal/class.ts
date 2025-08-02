@@ -32,22 +32,6 @@ const config: runtime.GetPrismaClientConfig = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "debian-openssl-3.0.x"
-      },
-      {
-        "fromEnvVar": null,
-        "value": "darwin"
-      },
-      {
-        "fromEnvVar": null,
-        "value": "darwin-arm64"
-      },
-      {
-        "fromEnvVar": null,
-        "value": "windows"
-      },
-      {
-        "fromEnvVar": null,
         "value": "windows",
         "native": true
       }
@@ -72,8 +56,8 @@ const config: runtime.GetPrismaClientConfig = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider      = \"prisma-client\"\n  output        = \"../generated/prisma\"\n  moduleFormat  = \"esm\"\n  binaryTargets = [\"debian-openssl-3.0.x\", \"darwin\", \"darwin-arm64\", \"windows\", \"native\"]\n}\n\ndatasource db {\n  provider = \"mysql\"\n  url      = env(\"DATABASE_URL\")\n}\n\n//TODO Solve problem about database URL being exposed at schema file\n\nmodel User {\n  id        String   @id @unique @default(cuid())\n  email     String   @unique\n  name      String   @unique\n  password  String   @default(\"\")\n  pollTags  String\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel Launcher {\n  id        String   @id @unique @default(cuid())\n  dataType  String   @unique\n  dataValue String   @db.LongText\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel Motd {\n  id        String   @id @unique @default(cuid())\n  motd      String   @db.LongText\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel Server {\n  id         String      @id @unique @default(cuid())\n  serverId   Int         @unique\n  name       String\n  desc       String      @default(\"\")\n  mcVersion  String      @default(\"1.7.10\")\n  difficulty Int         @default(2)\n  assets     String      @default(\"\")\n  core       String      @default(\"\")\n  modpack    String      @default(\"\")\n  available  Boolean     @default(false)\n  modded     Boolean     @default(false)\n  featured   String      @default(\"\")\n  periodic   Boolean     @default(false)\n  tags       ServerTag[]\n  createdAt  DateTime    @default(now())\n  updatedAt  DateTime    @updatedAt\n}\n\nmodel ServerTag {\n  id        String   @id @unique @default(cuid())\n  tagId     Int      @unique\n  name      String   @unique\n  desc      String\n  servers   Server[]\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel Articles {\n  id        String   @id @unique @default(cuid())\n  articleId Int      @unique\n  serverId  Int      @default(-1)\n  tabName   String\n  pageOrder Int      @default(0)\n  title     String   @default(\"\")\n  subtitle  String   @default(\"\")\n  text      String   @db.LongText\n  available Boolean  @default(true)\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n",
-  "inlineSchemaHash": "c98c9fac27a4966cd5a1d25ee3a3f2c35de82baa7fdb81199eb9aa46724bcba2",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider      = \"prisma-client\"\n  output        = \"../generated/prisma\"\n  moduleFormat  = \"esm\"\n  // binaryTargets = [\"debian-openssl-3.0.x\", \"darwin\", \"darwin-arm64\", \"windows\", \"native\"]\n  binaryTargets = [\"native\"]\n}\n\ndatasource db {\n  provider = \"mysql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id        String   @id @unique @default(cuid())\n  email     String   @unique\n  name      String   @unique\n  password  String   @default(\"\")\n  pollTags  String\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel Launcher {\n  id        String   @id @unique @default(cuid())\n  dataType  String   @unique\n  dataValue String   @db.LongText\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel Motd {\n  id        String   @id @unique @default(cuid())\n  motd      String   @db.LongText\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel Server {\n  id         String      @id @unique @default(cuid())\n  serverId   Int         @unique\n  name       String\n  desc       String      @default(\"\")\n  mcVersion  String      @default(\"1.7.10\")\n  difficulty Int         @default(2)\n  assets     String      @default(\"\")\n  core       String      @default(\"\")\n  modpack    String      @default(\"\")\n  available  Boolean     @default(false)\n  modded     Boolean     @default(false)\n  featured   String      @default(\"\")\n  periodic   Boolean     @default(false)\n  tags       ServerTag[]\n  createdAt  DateTime    @default(now())\n  updatedAt  DateTime    @updatedAt\n}\n\nmodel ServerTag {\n  id        String   @id @unique @default(cuid())\n  tagId     Int      @unique\n  name      String   @unique\n  desc      String\n  servers   Server[]\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel Articles {\n  id        String   @id @unique @default(cuid())\n  articleId Int      @unique\n  serverId  Int      @default(-1)\n  tabName   String\n  pageOrder Int      @default(0)\n  title     String   @default(\"\")\n  subtitle  String   @default(\"\")\n  text      String   @db.LongText\n  available Boolean  @default(true)\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n",
+  "inlineSchemaHash": "634981346a3acb3c862845162d9de50fabcfac316cb646815e40aa63ca00ae42",
   "copyEngine": true,
   "runtimeDataModel": {
     "models": {},

@@ -8,8 +8,7 @@ generator client {
   provider      = "prisma-client"
   output        = "../generated/prisma"
   moduleFormat  = "esm"
-  // binaryTargets = ["debian-openssl-3.0.x", "darwin", "darwin-arm64", "windows", "native"]
-  binaryTargets = ["native"]
+  binaryTargets = ["debian-openssl-3.0.x", "darwin", "darwin-arm64", "windows", "native"]
 }
 
 datasource db {

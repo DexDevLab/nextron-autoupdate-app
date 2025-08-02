@@ -6,6 +6,10 @@ jobs:
   release:
     runs-on: ${{ matrix.os }}
 
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      PRISMA_QUERY_ENGINE_LIBRARY: ${{ secrets.PRISMA_QUERY_ENGINE_LIBRARY }}
+
     strategy:
       matrix:
         os: [macos-latest, ubuntu-latest, windows-latest]

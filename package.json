@@ -2,7 +2,7 @@
   "private": true,
   "name": "nextron-autoupdate-app",
   "description": "Test for electron builder autoupdate",
-  "version": "v0.0.21",
+  "version": "v0.0.22",
   "author": "github.com/dexdevlab",
   "main": "app/background.js",
   "license": "MIT",

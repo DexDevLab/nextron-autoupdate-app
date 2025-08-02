@@ -2,7 +2,7 @@
   "private": true,
   "name": "nextron-autoupdate-app",
   "description": "Test for electron builder autoupdate",
-  "version": "v0.0.33",
+  "version": "v0.0.32",
   "author": "github.com/dexdevlab",
   "main": "app/background.js",
   "license": "MIT",
@@ -59,6 +59,13 @@
         "to": "generated/prisma"
       }
     ],
+    "win": {
+      "target": "nsis"
+    },
+    "mac": {
+      "target": "dmg",
+      "artifactName": "${productName}.dmg"
+    },
     "dmg": {
       "iconSize": 80,
       "title": "${productName}-${version}"

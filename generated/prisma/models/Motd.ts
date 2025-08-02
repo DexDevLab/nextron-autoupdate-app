@@ -161,7 +161,7 @@ type GetMotdGroupByPayload<T extends MotdGroupByArgs> = Prisma.PrismaPromise<
           : Prisma.GetScalarType<T[P], MotdGroupByOutputType[P]>
       }
     >
-  > 
+  >
 
 
 

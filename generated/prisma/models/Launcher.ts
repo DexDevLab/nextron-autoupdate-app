@@ -168,7 +168,7 @@ type GetLauncherGroupByPayload<T extends LauncherGroupByArgs> = Prisma.PrismaPro
           : Prisma.GetScalarType<T[P], LauncherGroupByOutputType[P]>
       }
     >
-  > 
+  >
 
 
 

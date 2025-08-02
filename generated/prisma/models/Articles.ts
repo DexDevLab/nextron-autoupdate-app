@@ -252,7 +252,7 @@ type GetArticlesGroupByPayload<T extends ArticlesGroupByArgs> = Prisma.PrismaPro
           : Prisma.GetScalarType<T[P], ArticlesGroupByOutputType[P]>
       }
     >
-  > 
+  >
 
 
 

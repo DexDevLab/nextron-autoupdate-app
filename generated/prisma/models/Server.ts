@@ -276,7 +276,7 @@ type GetServerGroupByPayload<T extends ServerGroupByArgs> = Prisma.PrismaPromise
           : Prisma.GetScalarType<T[P], ServerGroupByOutputType[P]>
       }
     >
-  > 
+  >
 
 
 

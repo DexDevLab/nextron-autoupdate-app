@@ -209,7 +209,7 @@ type GetServerTagGroupByPayload<T extends ServerTagGroupByArgs> = Prisma.PrismaP
           : Prisma.GetScalarType<T[P], ServerTagGroupByOutputType[P]>
       }
     >
-  > 
+  >
 
 
 
